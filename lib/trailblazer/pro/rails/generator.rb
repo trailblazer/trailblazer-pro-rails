@@ -4,12 +4,13 @@ module Trailblazer
     class Install < ::Rails::Generators::Base
       source_root File.expand_path("templates", __dir__)
 
-      def a
-        create_file Rails::API_KEY_PATH do
+      def create_session_file
+        create_file Rails::SESSION_PATH do
           input = ask %(Your Trailblazer PRO API key:)
-        end
 
-        create_file Rails::ID_TOKEN_PATH
+          uninitialized_session = Trailblazer::Pro::Session::Uninitialized.new(api_key: input, trailblazer_pro_host: "https://pro.trailblazer.to")
+          Trailblazer::Pro::Session.serialize(uninitialized_session)
+        end
       end
     end
   end
