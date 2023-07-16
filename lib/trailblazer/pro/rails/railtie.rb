@@ -8,9 +8,12 @@ module Trailblazer
             # TODO: warn if file not present etc.
             json = File.read(Rails::SESSION_PATH)
 
-            puts "@@@@@ #{Session.deserialize(json).inspect}"
             Pro.initialize!(**Session.deserialize(json))
           end
+        end
+
+        initializer "trailblazer-pro-rails.extend_operation" do
+          Trailblazer::Operation.extend(Trailblazer::Pro::Rails::Operation::Wtf) # Override {Operation.wtf?} so it pushes traces.
         end
       end
     end
