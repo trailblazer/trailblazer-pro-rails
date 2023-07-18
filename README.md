@@ -1,29 +1,35 @@
 # Trailblazer::Pro::Rails
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/trailblazer/pro/rails`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+In your Rails' `Gemfile`.
 
-    $ bundle add trailblazer-pro-rails
+```ruby
+gem "trailblazer-pro-rails"
+```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+## Configuration
 
-    $ gem install trailblazer-pro-rails
+1. Go to https://pro.trailblazer.to and sign up for TRB PRO.
+2. Click [Settings](https://pro.trailblazer.to/settings) and copy your API key.
+3. In your Rails app, run our generator in the terminal.
+    ```ruby
+    $ rails g trailblazer:pro:install
+    ```
+
+    Here, you need to copy your API key and hit enter.
+4. That's it!
 
 ## Usage
 
-TODO: Write usage instructions here
+After configuration, every `#wtf?` call will be sent to our web debugger, the link to it is printed on the terminal.
 
-## Development
+## TODO
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Lots of things!
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+* We want to allow filtering in `#wtf?`, so only particular operations can be traced.
+* End-to-end encryption between your app and the debugger, so no one except you can read through your stack.
+* Make `#wtf?` being invoked automatically when configured globally.
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/trailblazer-pro-rails.
+Hit us up with your ideas: https://trailblazer.zulipchat.com
