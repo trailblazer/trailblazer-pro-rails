@@ -32,4 +32,4 @@ Lots of things!
 * End-to-end encryption between your app and the debugger, so no one except you can read through your stack.
 * Make `#wtf?` being invoked automatically when configured globally.
 
-Hit us up with your ideas: https://trailblazer.zulipchat.com
+Hit us up with your ideas: https://trailblazer.zulipchat.com or check if we're already planning the feature you're thinking of: https://github.com/trailblazer/trailblazer-pro-rails/issues
