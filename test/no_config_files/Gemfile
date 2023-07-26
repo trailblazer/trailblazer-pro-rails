@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+gem "rake"
+gem "actionpack", "~> 7.0"
+gem "railties"
+# gem "sqlite3"
+gem "trailblazer-pro-rails", path: "../../../trailblazer-pro-rails"
+gem "trailblazer-pro", path: "../../../trailblazer-pro"
+
+gem "trailblazer-operation"
