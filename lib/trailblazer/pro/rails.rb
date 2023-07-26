@@ -11,6 +11,7 @@ module Trailblazer
 end
 
 require "rails/generators"
+require "trailblazer/pro"
 require "trailblazer/pro/rails/railtie"
 require "trailblazer/pro/rails/generator"
 require "trailblazer/pro/rails/wtf"
