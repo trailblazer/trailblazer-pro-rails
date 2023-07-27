@@ -26,7 +26,7 @@ class RailtieTest < Minitest::Spec
         cli.gets,
         cli.gets,
       ]
-      # out = cli.gets
+      # out = cli.gets # FIXME: this will block infinitely if there's no more line coming from the stream. if you can fix that for us, please do.
       cli.close
       puts lines
 
@@ -34,6 +34,7 @@ class RailtieTest < Minitest::Spec
       command_index = lines.index(command)
 
       assert_equal lines[command_index + 1], %(WelcomeController::Create\n) # Trace is here.
+      assert_equal lines[command_index + 2], %(|-- \e[32mStart.default\e[0m\n) # Trace is here.
 
       refute File.exist?("tmp/trb-pro/session")
       # assert_equal File.read("tmp/trb-pro/session"), %({"api_key":"ABC-999","trailblazer_pro_host":"https://pro.trailblazer.to"})
