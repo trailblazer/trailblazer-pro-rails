@@ -26,6 +26,7 @@ class App < Rails::Application
   config.consider_all_requests_local = true
   config.secret_key_base = "i_am_a_secret"
   # config.active_storage.service_configurations = { "local" => { "service" => "Disk", "root" => "./storage" } }
+  config.eager_load = false
 
   routes.append do
     root to: "welcome#index"
@@ -33,8 +34,17 @@ class App < Rails::Application
 end
 
 class WelcomeController < ActionController::Base
+  class Create < Trailblazer::Operation
+  end
+
   def index
     render inline: "Hi!"
+  end
+
+  def self.run_create
+    result = Create.wtf?(params: {})
+
+    result.success?
   end
 end
 
