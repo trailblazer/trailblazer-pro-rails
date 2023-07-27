@@ -1,7 +1,5 @@
 require "bundler/setup"
 
-
-
 require "rails"
 require "action_controller"
 
