@@ -12,7 +12,7 @@ module Trailblazer
 
             Trailblazer::Operation.extend(Trailblazer::Pro::Rails::Operation::Wtf) # Override {Operation.wtf?} so it pushes traces.
           else # no configuration happend, yet.
-            # Pro.initialize!(api_key: "")
+            Pro.initialize!(api_key: "")
           end
         end
       end

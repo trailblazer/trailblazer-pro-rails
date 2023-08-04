@@ -37,14 +37,31 @@ class WelcomeController < ActionController::Base
   class Create < Trailblazer::Operation
   end
 
-  def index
-    render inline: "Hi!"
+  class Http
+    def initialize
+      @requests = []
+    end
+
+    def post(*args, **kws)
+      @requests << [args, kws]
+      puts "@@@@@ #{args.inspect} #{kws}"
+      Faraday.post(*args, **kws)
+    end
+
+    def to_a
+      @requests
+    end
   end
 
   def self.run_create
+    Trailblazer::Pro::Session.wtf_present_options.merge!(http: http = Http.new)
+
     result = Create.wtf?(params: {})
 
-    result.success?
+    [
+      result.success?,
+      http.to_a.inspect
+    ]
   end
 end
 
