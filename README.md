@@ -17,6 +17,10 @@ gem "trailblazer-pro-rails"
 
     ```
 3. Run your operation via `#wtf?`.
+    ```ruby
+    result = API::V1::Diagram::Operation::Update.wtf?(params: params)
+    ```
+
 4. Click the `[TRB PRO]` link in your terminal and start debugging.
 
 ![Our web debugger in action.](docs/debugger-ide-screenshot-august.png)
