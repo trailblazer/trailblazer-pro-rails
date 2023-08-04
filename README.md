@@ -10,7 +10,7 @@ gem "trailblazer-pro-rails"
 
 ## Usage
 
-1. Get your API key from https://pro.trailblazer.to
+1. Get your API key from https://pro.trailblazer.to/settings
 2. Run our generator and enter your API key.
     ```
     $ rails g trailblazer:pro:install
