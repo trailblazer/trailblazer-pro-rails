@@ -59,16 +59,22 @@ class RailtieTest < Minitest::Spec
       cli.write "WelcomeController.run_create\n"
 
       line = nil
+      lines = []
+
       loop do
         line = cli.gets
+        lines << line
         puts "cli: #{line.inspect}"
         break if line =~ /\[TRB PRO\]/
       end
       cli.close
 
-      puts "@@@@@ #{line.inspect}"
-
       assert_equal line[0..-22], "[TRB PRO] view trace at https://ide.trailblazer.to/"
+
+    #@ wtf trace printed.
+      assert_equal lines[-4], "WelcomeController::Create\n"
+      assert_equal lines[-3], "|-- \e[32mStart.default\e[0m\n"
+
 
     # Now, check if we reuse id_token
 # raise
