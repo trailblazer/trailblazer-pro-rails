@@ -8,6 +8,23 @@ In your Rails' `Gemfile`.
 gem "trailblazer-pro-rails"
 ```
 
+## Usage
+
+1. Get your API key from https://pro.trailblazer.to
+2. Run our generator and enter your API key.
+    ```
+    $ rails g trailblazer:pro:install
+
+    ```
+3. Run your operation via `#wtf?`.
+4. Click the `[TRB PRO]` link in your terminal and start debugging.
+
+![Our web debugger in action.](docs/debugger-ide-screenshot.png)
+
+Note: we're currently playing with various invocation styles and at some point you might not even have to use `Operation.wtf?` anymore.
+
+
+
 ## Testing
 
 Currently, from the top directory, you need to run
