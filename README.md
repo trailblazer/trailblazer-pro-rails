@@ -19,7 +19,7 @@ gem "trailblazer-pro-rails"
 3. Run your operation via `#wtf?`.
 4. Click the `[TRB PRO]` link in your terminal and start debugging.
 
-![Our web debugger in action.](docs/debugger-ide-screenshot.png)
+![Our web debugger in action.](docs/debugger-ide-screenshot-august.png)
 
 Note: we're currently playing with various invocation styles and at some point you might not even have to use `Operation.wtf?` anymore.
 
