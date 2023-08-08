@@ -1,19 +1,8 @@
+#!/usr/bin/env ruby
+
 require "bundler/setup"
 require "rails"
 require "action_controller"
-
-# database = "development.sqlite3"
-# ENV["DATABASE_URL"] = "sqlite3:#{database}"
-# ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: database)
-# ActiveRecord::Base.logger = Logger.new(STDOUT)
-# ActiveRecord::Schema.define do
-#   create_table :posts, force: true do |t|
-#   end
-
-#   create_table :comments, force: true do |t|
-#     t.integer :post_id
-#   end
-# end
 
 require "trailblazer/operation"
 require "trailblazer/pro/rails" # FIXME: why do we need this here? can this be done via Gemfile?
@@ -24,12 +13,15 @@ class App < Rails::Application
   config.secret_key_base = "i_am_a_secret"
   config.eager_load = false
 
+  # we don't want the trace to be printed on the CLI.
+  config.trailblazer.pro.render_wtf = false
+
   routes.append do
     root to: "welcome#index"
   end
 end
 
-class WelcomeController < ActionController::Base
+class WelcomeController < ActionController::Base # FIXME: get this from generic top-level class.
   class Create < Trailblazer::Operation
   end
 
@@ -48,14 +40,6 @@ class WelcomeController < ActionController::Base
     end
   end
 
-  def self.run_create_with_wtf?
-    Trailblazer::Pro::Session.wtf_present_options.merge!(http: http = Http.new)
-
-    result = Create.wtf?(params: {})
-
-    %([#{result.success?}, #{http.to_a.inspect}]XXX)
-  end
-
   def self.run_create_with_WTF?
     Trailblazer::Pro::Session.wtf_present_options.merge!(http: http = Http.new)
 
@@ -66,3 +50,5 @@ class WelcomeController < ActionController::Base
 end
 
 App.initialize!
+
+require "rails/commands"

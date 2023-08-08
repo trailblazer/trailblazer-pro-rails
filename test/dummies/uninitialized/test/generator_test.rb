@@ -9,7 +9,7 @@ class GeneratorTest < Minitest::Spec
 
   it "allows canceling the installation" do
     Dir.chdir("test/dummies/uninitialized") do
-      cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bundle exec bin/rails g trailblazer:pro:install", "r+")
+      cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bundle exec bin/rails.rb g trailblazer:pro:install", "r+")
       cli.close
 
       # we don't leave any assets behind when canceling the installation
@@ -19,7 +19,7 @@ class GeneratorTest < Minitest::Spec
 
   it "configure API key" do
     Dir.chdir("test/dummies/uninitialized") do
-      cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails g trailblazer:pro:install", "r+")
+      cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails.rb g trailblazer:pro:install", "r+")
       cli.write "ABC-999\n"
       cli.close
 

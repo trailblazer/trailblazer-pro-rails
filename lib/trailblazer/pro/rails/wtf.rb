@@ -1,6 +1,7 @@
 module Trailblazer
   module Pro
     module Rails
+      # Save the session in tmp/ if it changed after invocation.
       module Wtf
         extend Pro::Trace::Wtf
         module_function
