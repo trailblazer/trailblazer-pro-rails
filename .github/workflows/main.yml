@@ -26,5 +26,6 @@ jobs:
     - name: Run the default task
       run: |
         bundle install
+        cd test/dummies && bundle install
         bundle exec rake test_1
         bundle exec rake test_2
