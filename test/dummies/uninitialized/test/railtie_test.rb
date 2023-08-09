@@ -17,20 +17,7 @@ class RailtieTest < Minitest::Spec
     refute File.exist?("tmp/trb-pro/session")
 
     Dir.chdir("test/dummies/uninitialized") do
-      cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails.rb c", "r+")
-      cli.write "WelcomeController.run_create_with_wtf?\n"
-      lines = [
-        cli.gets,
-        cli.gets,
-        cli.gets,
-        cli.gets,
-        cli.gets,
-        cli.gets,
-        cli.gets,
-      ]
-      # out = cli.gets # FIXME: this will block infinitely if there's no more line coming from the stream. if you can fix that for us, please do.
-      cli.close
-      puts lines
+      lines, last_line = execute_code_in_rails("WelcomeController.run_create_with_wtf?")
 
       command = lines.reverse.find { |line| line =~ /WelcomeController\.run_create_with_wtf/ } or raise
       command_index = lines.index(command)
@@ -118,4 +105,25 @@ class RailtieTest < Minitest::Spec
     end
   end
 
+  it "allows configuration of trace strategy via {config}" do
+    Dir.chdir("test/dummies/configured") do
+      # We skip configuring via interactive shell here.
+      session_json = %({"api_key":"tpka_f5c698e2_d1ac_48fa_b59f_70e9ab100604","trailblazer_pro_host":"#{trailblazer_pro_host}"})
+      json = File.write("tmp/trb-pro/session", session_json)
+
+      lines, last_line = execute_code_in_rails("WelcomeController.run_create")
+
+      # CLI and web tracing for {Song::Operation::Create}
+      assert_equal lines[-4], "Song::Operation::Create\n"
+      assert_equal lines[-3], "|-- \e[32mStart.default\e[0m\n"
+      assert_equal lines[-2], "`-- End.success\n"
+      assert_equal last_line[0..-22], "\e[1m[TRB PRO] view trace (Song::Operation::Create) at \e[22mhttps://ide.trailblazer.to/"
+
+      # no automatic tracing {Song::Operation::Update}
+      lines, last_line = execute_code_in_rails("WelcomeController.run_update")
+
+      assert_equal lines.size, 3 # no tracing at all!
+      assert_equal last_line, "WelcomeController.run_update"
+    end
+  end
 end

@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require_relative "../configured/rails_app"
+require_relative "../rails_app"
 require "rails/commands"
