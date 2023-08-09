@@ -1,5 +1,6 @@
-PATH
-  remote: ../../../trailblazer-pro
+GIT
+  remote: https://github.com/trailblazer/trailblazer-pro.git
+  revision: 9f01e31185cfbfd630edd3a044e208f5fefe1183
   specs:
     trailblazer-pro (0.0.1)
       faraday

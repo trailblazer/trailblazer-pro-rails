@@ -5,7 +5,8 @@ gem "actionpack", "~> 7.0"
 gem "railties"
 # gem "sqlite3"
 gem "trailblazer-pro-rails", path: "../../../trailblazer-pro-rails"
-gem "trailblazer-pro", path: "../../../trailblazer-pro" # FIXME
+# gem "trailblazer-pro", path: "../../../trailblazer-pro" # FIXME
+gem "trailblazer-pro", github: "trailblazer/trailblazer-pro" # FIXME
 
 gem "trailblazer-operation"
 gem "minitest-line"

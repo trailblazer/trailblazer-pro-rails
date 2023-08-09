@@ -123,7 +123,7 @@ class RailtieTest < Minitest::Spec
       lines, last_line = execute_code_in_rails("WelcomeController.run_update")
 
       assert_equal lines.size, 3 # no tracing at all!
-      assert_equal last_line, "WelcomeController.run_update"
+      assert_equal last_line, "WelcomeController.run_update\n"
     end
   end
 end
