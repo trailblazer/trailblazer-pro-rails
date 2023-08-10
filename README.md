@@ -16,9 +16,9 @@ gem "trailblazer-pro-rails"
     $ rails g trailblazer:pro:install
 
     ```
-3. Run your operation via `#wtf?`.
+3. Run your operation via `#WTF?`.
     ```ruby
-    result = API::V1::Diagram::Operation::Update.wtf?(params: params)
+    result = API::V1::Diagram::Operation::Update.WTF?(params: params)
     ```
 
 4. Click the `[TRB PRO]` link in your terminal and start debugging.
