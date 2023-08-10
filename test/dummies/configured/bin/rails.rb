@@ -25,7 +25,7 @@ class App < Rails::Application
 
   # we don't want the trace to be printed on the CLI.
   config.trailblazer.pro.trace_operations = {
-    Song::Operation::Create => true,
+    "Song::Operation::Create" => true, # in production, operation constant might not be loaded, yet.
   }
 
   routes.append do

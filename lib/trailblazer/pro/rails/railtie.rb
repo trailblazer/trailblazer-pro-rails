@@ -23,6 +23,9 @@ module Trailblazer
             trace_operations = config.trailblazer.pro.trace_operations
 
             if trace_operations
+              # constants can be passed as strings to avoid autoloading issues.
+              trace_operations = trace_operations.collect { |klass, config| [klass.constantize, config] }.to_h
+
               Pro.trace_operations!(trace_operations)
             end
 
