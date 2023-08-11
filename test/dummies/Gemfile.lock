@@ -1,18 +1,8 @@
-GIT
-  remote: https://github.com/trailblazer/trailblazer-pro.git
-  revision: 9f01e31185cfbfd630edd3a044e208f5fefe1183
-  specs:
-    trailblazer-pro (0.0.1)
-      faraday
-      jwt
-      trailblazer-activity (>= 0.16.1, < 0.17.0)
-      trailblazer-developer (>= 0.1.0, < 0.2.0)
-
 PATH
   remote: ../..
   specs:
-    trailblazer-pro-rails (0.0.1)
-      trailblazer-pro (= 0.0.1)
+    trailblazer-pro-rails (0.0.3)
+      trailblazer-pro (= 0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -94,6 +84,11 @@ GEM
       trailblazer-activity-dsl-linear (>= 1.2.0, < 1.4.0)
       trailblazer-developer (>= 0.1.0, < 0.2.0)
     trailblazer-option (0.1.2)
+    trailblazer-pro (0.0.2)
+      faraday
+      jwt
+      trailblazer-activity (>= 0.16.1, < 0.17.0)
+      trailblazer-developer (>= 0.1.0, < 0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     zeitwerk (2.6.11)
@@ -107,7 +102,6 @@ DEPENDENCIES
   railties
   rake
   trailblazer-operation
-  trailblazer-pro!
   trailblazer-pro-rails!
 
 BUNDLED WITH
