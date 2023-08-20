@@ -8,31 +8,27 @@ module Trailblazer
 
         # load session and set Pro::Session.session
         initializer "trailblazer-pro-rails.load_session_and_extend_operation" do
-          Trailblazer::Operation.extend(Pro::Operation::WTF)  # TODO: only apply to selected OPs or make at least configurable?
+          config.after_initialize do
+            Trailblazer::Operation.extend(Pro::Operation::WTF)  # TODO: only apply to selected OPs or make at least configurable?
 
-          config_options = {
-            render_wtf: config.trailblazer.pro.render_wtf,
-          }
+            config_options = {
+              render_wtf: config.trailblazer.pro.render_wtf,
+            }
 
-          if File.exist?(Rails::SESSION_PATH)
-            # TODO: warn if file not present etc.
-            json = File.read(Rails::SESSION_PATH)
+            if File.exist?(Rails::SESSION_PATH)
+              # TODO: warn if file not present etc.
+              json = File.read(Rails::SESSION_PATH)
 
-            Pro.initialize!(**Session.deserialize(json), **config_options)
+              Pro.initialize!(**Session.deserialize(json), **config_options)
 
-            trace_operations = config.trailblazer.pro.trace_operations
+              trace_operations = config.trailblazer.pro.trace_operations
+              Pro.trace_operations!(trace_operations) if trace_operations
 
-            if trace_operations
-              # constants can be passed as strings to avoid autoloading issues.
-              trace_operations = trace_operations.collect { |klass, config| [klass.constantize, config] }.to_h
-
-              Pro.trace_operations!(trace_operations)
+              # TODO: add {Activity.invoke} here, too!
+              # Trailblazer::Activity.extend(Pro::Call::Activity) # FIXME: only if allowed! # TODO: only apply to selected OPs.
+            else # no configuration happend, yet.
+              Pro.initialize!(api_key: "")
             end
-
-            # TODO: add {Activity.invoke} here, too!
-            # Trailblazer::Activity.extend(Pro::Call::Activity) # FIXME: only if allowed! # TODO: only apply to selected OPs.
-          else # no configuration happend, yet.
-            Pro.initialize!(api_key: "")
           end
         end
       end
