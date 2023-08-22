@@ -136,10 +136,10 @@ class RailtieTest < Minitest::Spec
       lines, last_line = execute_code_in_rails("WelcomeController.run_create")
 
       # CLI and web tracing for {Song::Operation::Create}
-      assert_equal lines[-4], "Song::Operation::Create\n"
+      assert_equal lines[-4], "Create\n"
       assert_equal lines[-3], "|-- \e[32mStart.default\e[0m\n"
       assert_equal lines[-2], "`-- End.success\n"
-      assert_equal last_line[0..-22], "\e[1m[TRB PRO] view trace (Song::Operation::Create) at \e[22mhttps://ide.trailblazer.to/"
+      assert_equal last_line[0..-22], "\e[1m[TRB PRO] view trace (Create) at \e[22mhttps://ide.trailblazer.to/"
     end
   end
 end
