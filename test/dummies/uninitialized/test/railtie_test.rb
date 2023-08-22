@@ -126,4 +126,20 @@ class RailtieTest < Minitest::Spec
       assert_equal last_line, "WelcomeController.run_update\n"
     end
   end
+
+  it "allows configuring {trace_operations} in production" do
+    Dir.chdir("test/dummies/production_env") do
+      # We skip configuring via interactive shell here.
+      session_json = %({"api_key":"tpka_f5c698e2_d1ac_48fa_b59f_70e9ab100604","trailblazer_pro_host":"#{trailblazer_pro_host}"})
+      json = File.write("tmp/trb-pro/session", session_json)
+
+      lines, last_line = execute_code_in_rails("WelcomeController.run_create")
+
+      # CLI and web tracing for {Song::Operation::Create}
+      assert_equal lines[-4], "Song::Operation::Create\n"
+      assert_equal lines[-3], "|-- \e[32mStart.default\e[0m\n"
+      assert_equal lines[-2], "`-- End.success\n"
+      assert_equal last_line[0..-22], "\e[1m[TRB PRO] view trace (Song::Operation::Create) at \e[22mhttps://ide.trailblazer.to/"
+    end
+  end
 end
