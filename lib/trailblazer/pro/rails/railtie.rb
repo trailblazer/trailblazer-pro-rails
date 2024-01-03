@@ -9,6 +9,8 @@ module Trailblazer
         # load session and set Pro::Session.session
         initializer "trailblazer-pro-rails.load_session_and_extend_operation" do
           config.after_initialize do
+            Trailblazer::Operation.extend(Pro::Operation::WTF)  # TODO: only apply to selected OPs or make at least configurable?
+
             config_options = {
               render_wtf: config.trailblazer.pro.render_wtf,
             }
