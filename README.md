@@ -27,7 +27,28 @@ gem "trailblazer-pro-rails"
 
 Note: we're currently playing with various invocation styles and at some point you might not even have to use `Operation.wtf?` anymore.
 
+## Configuration (optional)
 
+Configure your operations to use the web debugger, example configuration:
+```ruby
+# config/environments/development.rb
+config.trailblazer.pro.trace_operations = {
+  "API::V1::Diagram::Operation::Update" => true,
+  "API::V1::Diagram::Operation::Create" => true,
+}
+```
+
+Or, if you want to trace all operations, use `:all` as the value.
+```ruby
+# config/environments/development.rb
+config.trailblazer.pro.trace_operations = :all
+```
+
+Disable printing trace to console, show only link to web debugger.
+```ruby
+# config/environments/development.rb
+  config.trailblazer.pro.render_wtf = false
+```
 
 ## Testing
 
