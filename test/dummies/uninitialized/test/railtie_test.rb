@@ -9,9 +9,9 @@ class RailtieTest < Minitest::Spec
     end
   end
 
-  let(:api_key) { "tpka_f5c698e2_d1ac_48fa_b59f_70e9ab100604" }
+  let(:api_key) { "tpka_909ae987_c834_43e4_9869_2eefd2aa9bcf" }
   # let(:trailblazer_pro_host) { "http://localhost:3000" }
-  let(:trailblazer_pro_host) { "https://test-pro-rails-jwt.onrender.com" }
+  let(:trailblazer_pro_host) { "https://testbackend-pro.trb.to" }
 
   it "allows running {#wtf?} without configuration of PRO" do
     refute File.exist?("tmp/trb-pro/session")
@@ -93,7 +93,7 @@ class RailtieTest < Minitest::Spec
   it "you can disable CLI tracing with {render_wtf: false}" do
     Dir.chdir("test/dummies/render_wtf_is_false") do
       # We skip configuring via interactive shell here.
-      session_json = %({"api_key":"tpka_f5c698e2_d1ac_48fa_b59f_70e9ab100604","trailblazer_pro_host":"#{trailblazer_pro_host}"})
+      session_json = %({"api_key":"#{api_key}","trailblazer_pro_host":"#{trailblazer_pro_host}"})
       json = File.write("tmp/trb-pro/session", session_json)
 
       lines, last_line = execute_code_in_rails("WelcomeController.run_create_with_WTF?")
@@ -108,7 +108,7 @@ class RailtieTest < Minitest::Spec
   it "allows configuration of trace strategy via {config}" do
     Dir.chdir("test/dummies/configured") do
       # We skip configuring via interactive shell here.
-      session_json = %({"api_key":"tpka_f5c698e2_d1ac_48fa_b59f_70e9ab100604","trailblazer_pro_host":"#{trailblazer_pro_host}"})
+      session_json = %({"api_key":"#{api_key}","trailblazer_pro_host":"#{trailblazer_pro_host}"})
       json = File.write("tmp/trb-pro/session", session_json)
 
       lines, last_line = execute_code_in_rails("WelcomeController.run_create")
@@ -130,7 +130,7 @@ class RailtieTest < Minitest::Spec
   it "allows configuring {trace_operations} in production" do
     Dir.chdir("test/dummies/production_env") do
       # We skip configuring via interactive shell here.
-      session_json = %({"api_key":"tpka_f5c698e2_d1ac_48fa_b59f_70e9ab100604","trailblazer_pro_host":"#{trailblazer_pro_host}"})
+      session_json = %({"api_key":"#{api_key}","trailblazer_pro_host":"#{trailblazer_pro_host}"})
       json = File.write("tmp/trb-pro/session", session_json)
 
       lines, last_line = execute_code_in_rails("WelcomeController.run_create")
