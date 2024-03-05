@@ -150,7 +150,7 @@ class RailtieTest < Minitest::Spec
 
     Dir.chdir("test/dummies/uninitialized") do
       cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails.rb g trailblazer:pro:install", "r+")
-      cli.write "XXX_#{api_key}\n"
+      cli.write "XXX_#{api_key}\n" # wrong key.
       cli.close
 
       json = File.read("tmp/trb-pro/session")
