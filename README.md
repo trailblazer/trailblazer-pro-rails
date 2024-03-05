@@ -44,6 +44,11 @@ $ rake test_2
 
 Tests if `wtf?` works without any PRO configuration, but PRO is added.
 
+```ruby
+$ rake test_3
+```
+
+Tests that the PRO editor import generator works.
 
 ### Architecture
 
