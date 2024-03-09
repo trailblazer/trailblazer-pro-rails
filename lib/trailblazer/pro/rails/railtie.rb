@@ -24,15 +24,17 @@ module Trailblazer
               trace_operations = config.trailblazer.pro.trace_operations
 
               if trace_operations
-                # constants can be passed as strings to avoid autoloading issues.
-                trace_operations = trace_operations.collect { |klass, config| [klass.constantize, config] }.to_h
+                if trace_operations.is_a?(Hash)
+                  # constants can be passed as strings to avoid autoloading issues.
+                  trace_operations = trace_operations.collect { |klass, config| [klass.constantize, config] }.to_h
+                end
 
                 Pro.trace_operations!(trace_operations)
               end
 
               # TODO: add {Activity.invoke} here, too!
               # Trailblazer::Activity.extend(Pro::Call::Activity) # FIXME: only if allowed! # TODO: only apply to selected OPs.
-            else # no configuration happend, yet.
+            else # no configuration happened, yet.
               Pro.initialize!(api_key: "")
             end
           end
