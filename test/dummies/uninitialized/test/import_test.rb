@@ -1,6 +1,8 @@
 require_relative "test_helper"
 
-class GeneratorTest < Minitest::Spec
+class ImportTest < Minitest::Spec
+  include ExecuteInRails
+
   let(:api_key) { "tpka_909ae987_c834_43e4_9869_2eefd2aa9bcf" }
   let(:trailblazer_pro_host) { "https://testbackend-pro.trb.to" }
 
@@ -23,7 +25,7 @@ class GeneratorTest < Minitest::Spec
 
 
       cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails.rb g trailblazer:pro:import b0f945 /tmp/b0f945.json", "r+")
-      assert_equal cli.readlines.last, %(Diagram b0f945 successfully imported to /tmp/b0f945.json.\n)
+      assert_equal read_from_cli(cli)[1], %(Diagram b0f945 successfully imported to /tmp/b0f945.json.\n)
       cli.close
 
       assert File.exist?("/tmp/b0f945.json")
