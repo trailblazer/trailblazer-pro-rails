@@ -1,30 +1,7 @@
 require_relative "test_helper"
 
-# require_relative "../rails_app"
-
 class RailtieTest < Minitest::Spec
-  def execute_code_in_rails(command)
-    cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails.rb c", "r+")
-    cli.write "#{command}\n"
-
-    lines = []
-    last_line  = nil
-
-    loop do
-      line = cli.gets
-      break if line.nil?
-      break if line =~ /XXX/
-
-      puts "cli: #{line}"
-      last_line = line
-      lines << line
-
-      break if line[0..11] == "\tfrom (irb):" # detect exceptions, stop reading. Otherwise {#gets} will never return.
-    end
-    cli.close
-
-    return lines, last_line
-  end
+  include ExecuteInRails
 
   after do
     Dir.chdir("test/dummies/uninitialized") do
@@ -40,7 +17,7 @@ class RailtieTest < Minitest::Spec
     refute File.exist?("tmp/trb-pro/session")
 
     Dir.chdir("test/dummies/uninitialized") do
-      lines, last_line = execute_code_in_rails("WelcomeController.run_create_with_wtf?")
+      lines, last_line = execute_in_rails("WelcomeController.run_create_with_wtf?")
 
       command = lines.reverse.find { |line| line =~ /WelcomeController\.run_create_with_wtf/ } or raise
       command_index = lines.index(command)
@@ -66,7 +43,7 @@ class RailtieTest < Minitest::Spec
       File.write("tmp/trb-pro/session", json) # FIXME: what do you mean? This is super clean :D
 
     #@ WTF? traces on web&CLI
-      lines, last_line = execute_code_in_rails("WelcomeController.run_create_with_WTF?")
+      lines, last_line = execute_in_rails("WelcomeController.run_create_with_WTF?")
 
       assert_equal last_line[0..-22], "\e[1m[TRB PRO] view trace (WelcomeController::Create) at \e[22mhttps://ide.trailblazer.to/"
 
@@ -76,7 +53,7 @@ class RailtieTest < Minitest::Spec
 
     #@ wtf? traces on CLI
 
-    lines, last_line = execute_code_in_rails("WelcomeController.run_create_with_wtf?")
+    lines, last_line = execute_in_rails("WelcomeController.run_create_with_wtf?")
 
     # no web trace
     assert_equal lines[-4..-1], [
@@ -98,7 +75,7 @@ class RailtieTest < Minitest::Spec
       session_json = %({"api_key":"#{api_key}","trailblazer_pro_host":"#{trailblazer_pro_host}"})
       json = File.write("tmp/trb-pro/session", session_json)
 
-      lines, last_line = execute_code_in_rails("WelcomeController.run_create_with_WTF?")
+      lines, last_line = execute_in_rails("WelcomeController.run_create_with_WTF?")
 
       assert_equal last_line[0..-22], "\e[1m[TRB PRO] view trace (WelcomeController::Create) at \e[22mhttps://ide.trailblazer.to/"
 
@@ -113,7 +90,7 @@ class RailtieTest < Minitest::Spec
       session_json = %({"api_key":"#{api_key}","trailblazer_pro_host":"#{trailblazer_pro_host}"})
       json = File.write("tmp/trb-pro/session", session_json)
 
-      lines, last_line = execute_code_in_rails("WelcomeController.run_create")
+      lines, last_line = execute_in_rails("WelcomeController.run_create")
 
       # CLI and web tracing for {Song::Operation::Create}
       assert_equal lines[-4], "Song::Operation::Create\n"
@@ -122,7 +99,7 @@ class RailtieTest < Minitest::Spec
       assert_equal last_line[0..-22], "\e[1m[TRB PRO] view trace (Song::Operation::Create) at \e[22mhttps://ide.trailblazer.to/"
 
       # no automatic tracing {Song::Operation::Update}
-      lines, last_line = execute_code_in_rails("WelcomeController.run_update")
+      lines, last_line = execute_in_rails("WelcomeController.run_update")
 
       assert_equal lines.size, 3 # no tracing at all!
       assert_equal last_line, "WelcomeController.run_update\n"
@@ -135,7 +112,7 @@ class RailtieTest < Minitest::Spec
       session_json = %({"api_key":"#{api_key}","trailblazer_pro_host":"#{trailblazer_pro_host}"})
       json = File.write("tmp/trb-pro/session", session_json)
 
-      lines, last_line = execute_code_in_rails("WelcomeController.run_create")
+      lines, last_line = execute_in_rails("WelcomeController.run_create")
 
       # CLI and web tracing for {Song::Operation::Create}
       assert_equal lines[-4], "Create\n"
@@ -157,7 +134,7 @@ class RailtieTest < Minitest::Spec
       json = json.sub("https://pro.trailblazer.to", trailblazer_pro_host)
       File.write("tmp/trb-pro/session", json) # FIXME: what do you mean? This is super clean :D
 
-      lines, last_line = execute_code_in_rails("WelcomeController.run_create_with_WTF?")
+      lines, last_line = execute_in_rails("WelcomeController.run_create_with_WTF?")
 
       assert_equal lines[-2], %(RuntimeError ("Custom token couldn't be retrieved. HTTP status: 401")\n)
     end

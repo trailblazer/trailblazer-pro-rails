@@ -1,5 +1,6 @@
 require_relative "test_helper"
 
+# $ rake test_1
 class GeneratorTest < Minitest::Spec
   after do
     Dir.chdir("test/dummies/uninitialized") do
