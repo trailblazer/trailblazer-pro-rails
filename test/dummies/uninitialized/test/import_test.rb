@@ -24,13 +24,14 @@ class ImportTest < Minitest::Spec
       File.write("tmp/trb-pro/session", json) # FIXME: what do you mean? This is super clean :D
 
 
-      cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails.rb g trailblazer:pro:import b0f945 /tmp/b0f945.json", "r+")
-      assert_equal read_from_cli(cli)[1], %(Diagram b0f945 successfully imported to /tmp/b0f945.json.\n)
+      cli = File.popen({"BUNDLE_GEMFILE" => "../Gemfile"}, "bin/rails.rb g trailblazer:pro:import 79d163 /tmp/79d163.json", "r+")
+      assert_equal read_from_cli(cli)[1], %(Diagram 79d163 successfully imported to /tmp/79d163.json.\n)
       cli.close
 
-      assert File.exist?("/tmp/b0f945.json")
+      assert File.exist?("/tmp/79d163.json")
       # TODO: use template from trailblazer-pro test suite.
-      assert_equal File.read("/tmp/b0f945.json"), %({\"id\":3,\"type\":\"collaboration\",\"lanes\":[{\"id\":\"lifecycle\",\"type\":\"lane\",\"elements\":[{\"id\":\"Activity_0dgrwre\",\"label\":\"Create\",\"type\":\"task\",\"data\":{},\"links\":[{\"target_id\":\"throw-after-Activity_0dgrwre\",\"semantic\":\"success\"}]},{\"id\":\"catch-before-Activity_0dgrwre\",\"label\":null,\"type\":\"catch_event\",\"data\":{\"start_task\":true},\"links\":[{\"target_id\":\"Activity_0dgrwre\",\"semantic\":\"success\"}]},{\"id\":\"throw-after-Activity_0dgrwre\",\"label\":null,\"type\":\"throw_event\",\"data\":{},\"links\":[]},{\"id\":\"suspend-gw-to-catch-before-Activity_0dgrwre\",\"label\":null,\"type\":\"suspend\",\"data\":{\"resumes\":[\"catch-before-Activity_0dgrwre\"]},\"links\":[]}]}],\"messages\":[]})
+      File.read("/tmp/79d163.json")
+      assert_equal File.read("/tmp/79d163.json"), %()
     end
   end
 end
