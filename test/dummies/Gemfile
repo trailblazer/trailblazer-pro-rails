@@ -5,8 +5,10 @@ gem "actionpack", "~> 7.0"
 gem "railties"
 # gem "sqlite3"
 gem "trailblazer-pro-rails", path: "../../../trailblazer-pro-rails"
-# gem "trailblazer-pro", path: "../../../trailblazer-pro" # FIXME
+gem "trailblazer-pro", path: "../../../trailblazer-pro" # FIXME
+# gem "trailblazer-activity-dsl-linear", path: "../../../trailblazer-activity-dsl-linear" # FIXME
 # gem "trailblazer-pro", github: "trailblazer/trailblazer-pro" # FIXME
+gem "trailblazer-workflow", path: "../../../trailblazer-workflow" # FIXME
 
 gem "trailblazer-operation"
 gem "minitest-line"

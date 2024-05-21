@@ -1,56 +1,105 @@
 PATH
+  remote: ../../../trailblazer-pro
+  specs:
+    trailblazer-pro (0.0.2)
+      faraday
+      jwt
+      trailblazer-activity (>= 0.16.1, < 0.17.0)
+      trailblazer-activity-dsl-linear (>= 1.2.5)
+      trailblazer-developer (>= 0.1.0, < 0.2.0)
+
+PATH
+  remote: ../../../trailblazer-workflow
+  specs:
+    trailblazer-workflow (0.0.1)
+      multi_json
+      representable (~> 3.1)
+      terminal-table
+      trailblazer-activity (>= 0.16.2, < 0.17.0)
+      trailblazer-developer (>= 0.0.17)
+      trailblazer-macro
+
+PATH
   remote: ../..
   specs:
-    trailblazer-pro-rails (0.0.3)
+    trailblazer-pro-rails (0.0.4)
       trailblazer-pro (= 0.0.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (7.0.6)
-      actionview (= 7.0.6)
-      activesupport (= 7.0.6)
-      rack (~> 2.0, >= 2.2.4)
+    actionpack (7.1.3.2)
+      actionview (= 7.1.3.2)
+      activesupport (= 7.1.3.2)
+      nokogiri (>= 1.8.5)
+      racc
+      rack (>= 2.2.4)
+      rack-session (>= 1.0.1)
       rack-test (>= 0.6.3)
-      rails-dom-testing (~> 2.0)
-      rails-html-sanitizer (~> 1.0, >= 1.2.0)
-    actionview (7.0.6)
-      activesupport (= 7.0.6)
+      rails-dom-testing (~> 2.2)
+      rails-html-sanitizer (~> 1.6)
+    actionview (7.1.3.2)
+      activesupport (= 7.1.3.2)
       builder (~> 3.1)
-      erubi (~> 1.4)
-      rails-dom-testing (~> 2.0)
-      rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activesupport (7.0.6)
+      erubi (~> 1.11)
+      rails-dom-testing (~> 2.2)
+      rails-html-sanitizer (~> 1.6)
+    activesupport (7.1.3.2)
+      base64
+      bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      drb
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
+      mutex_m
       tzinfo (~> 2.0)
+    base64 (0.2.0)
+    bigdecimal (3.1.7)
     builder (3.2.4)
-    concurrent-ruby (1.2.2)
+    concurrent-ruby (1.2.3)
+    connection_pool (2.4.1)
     crass (1.0.6)
+    declarative (0.0.20)
+    drb (2.2.1)
     erubi (1.12.0)
-    faraday (2.7.10)
-      faraday-net_http (>= 2.0, < 3.1)
-      ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.2)
+    faraday (2.9.0)
+      faraday-net_http (>= 2.0, < 3.2)
+    faraday-net_http (3.1.0)
+      net-http
     hashie (5.0.0)
     hirb (0.7.3)
-    i18n (1.14.1)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
-    jwt (2.7.1)
-    loofah (2.21.3)
+    io-console (0.7.2)
+    irb (1.12.0)
+      rdoc
+      reline (>= 0.4.2)
+    jwt (2.8.1)
+      base64
+    loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    method_source (1.0.0)
-    minitest (5.19.0)
+    minitest (5.22.3)
     minitest-line (0.6.5)
       minitest (~> 5.0)
-    nokogiri (1.15.3-x86_64-linux)
+    multi_json (1.15.0)
+    mutex_m (0.2.0)
+    net-http (0.4.1)
+      uri
+    nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
-    racc (1.7.1)
-    rack (2.2.8)
+    psych (5.1.2)
+      stringio
+    racc (1.7.3)
+    rack (3.0.10)
+    rack-session (2.0.0)
+      rack (>= 3.0.0)
     rack-test (2.1.0)
       rack (>= 1.3)
+    rackup (2.1.0)
+      rack (>= 3)
+      webrick (~> 1.8)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -58,20 +107,31 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    railties (7.0.6)
-      actionpack (= 7.0.6)
-      activesupport (= 7.0.6)
-      method_source
+    railties (7.1.3.2)
+      actionpack (= 7.1.3.2)
+      activesupport (= 7.1.3.2)
+      irb
+      rackup (>= 1.0.0)
       rake (>= 12.2)
-      thor (~> 1.0)
-      zeitwerk (~> 2.5)
-    rake (13.0.6)
-    ruby2_keywords (0.0.5)
-    thor (1.2.2)
-    trailblazer-activity (0.16.1)
+      thor (~> 1.0, >= 1.2.2)
+      zeitwerk (~> 2.6)
+    rake (13.2.1)
+    rdoc (6.6.3.1)
+      psych (>= 4.0.0)
+    reline (0.5.2)
+      io-console (~> 0.5)
+    representable (3.2.0)
+      declarative (< 0.1.0)
+      trailblazer-option (>= 0.1.1, < 0.2.0)
+      uber (< 0.2.0)
+    stringio (3.1.0)
+    terminal-table (3.0.2)
+      unicode-display_width (>= 1.1.1, < 3)
+    thor (1.3.1)
+    trailblazer-activity (0.16.2)
       trailblazer-context (~> 0.5.0)
       trailblazer-option (~> 0.1.0)
-    trailblazer-activity-dsl-linear (1.2.4)
+    trailblazer-activity-dsl-linear (1.2.5)
       trailblazer-activity (>= 0.16.0, < 0.17.0)
       trailblazer-declarative (>= 0.0.1, < 0.1.0)
     trailblazer-context (0.5.1)
@@ -80,18 +140,20 @@ GEM
     trailblazer-developer (0.1.0)
       hirb
       trailblazer-activity-dsl-linear (>= 1.2.0, < 1.3.0)
+    trailblazer-macro (2.1.15)
+      trailblazer-activity-dsl-linear (>= 1.2.0, < 1.3.0)
+      trailblazer-operation (>= 0.10.1)
     trailblazer-operation (0.10.1)
       trailblazer-activity-dsl-linear (>= 1.2.0, < 1.4.0)
       trailblazer-developer (>= 0.1.0, < 0.2.0)
     trailblazer-option (0.1.2)
-    trailblazer-pro (0.0.2)
-      faraday
-      jwt
-      trailblazer-activity (>= 0.16.1, < 0.17.0)
-      trailblazer-developer (>= 0.1.0, < 0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    zeitwerk (2.6.11)
+    uber (0.1.0)
+    unicode-display_width (2.5.0)
+    uri (0.13.0)
+    webrick (1.8.1)
+    zeitwerk (2.6.13)
 
 PLATFORMS
   x86_64-linux
@@ -102,7 +164,9 @@ DEPENDENCIES
   railties
   rake
   trailblazer-operation
+  trailblazer-pro!
   trailblazer-pro-rails!
+  trailblazer-workflow!
 
 BUNDLED WITH
    2.3.10
