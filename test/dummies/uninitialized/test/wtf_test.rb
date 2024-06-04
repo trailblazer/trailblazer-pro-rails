@@ -136,7 +136,7 @@ class RailtieTest < Minitest::Spec
 
       lines, last_line = execute_in_rails("WelcomeController.run_create_with_WTF?")
 
-      assert_equal lines[-2], %(RuntimeError ("Custom token couldn't be retrieved. HTTP status: 401")\n)
+      assert_equal lines[-1], %(Custom token couldn't be retrieved. HTTP status: 401\n)
     end
   end
 end
